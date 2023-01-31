@@ -67,6 +67,7 @@ create user 'nfteam'@'%' identified by 'asd123';
 ```
 
 - `%`: 외부 호스트 접근 권한 부여
+- `create user 'root'@'%' identified by '0000';`
 
 #### 유저 권한 설정
 
@@ -79,9 +80,12 @@ use mysql;
 ```
 
 - root 계정 비밀번호 변경
+  - '%' 외부 호스트 접근 권한이 부여된 root 계정의 비밀번호를 변경하려면 create를 통해 '%' 권한이 부여된 'root' 계정을 먼저 생성해야 한다.
+  - localhost 접근 권한이 있는 root와 %(외부 호스트) 접근 권한이 있는 root는 서로 다른 root임을 유의
+
 
 ```sql
-ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '[변경 비밀번호]';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '[변경 비밀번호]';
 ```
 
 - 변경 사항 적용
@@ -91,6 +95,8 @@ FLUSH PRIVILEGES;
 ```
 
 - mysql 접속을 종료하여 비밀번호가 변경되었는지 확인한다
+  - `EXIT;` 말고도 `QUIT;`로도 종료 가능함
+
 
 ```sql
 EXIT;
