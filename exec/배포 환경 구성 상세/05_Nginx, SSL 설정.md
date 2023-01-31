@@ -2,7 +2,7 @@
 
 ## 사용 기술 스택
 
-> nginx, Let's Encrypt
+> Nginx, Let's Encrypt
 
 |                                                      Nginx                                                      |                                                                              Let's Encrypt                                                                               |
 | :-------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -14,13 +14,13 @@
 
 ### Nginx 설치
 
-```
+```bash
 sudo apt-get install nginx
 ```
 
 > 버전 확인
 
-```
+```bash
 sudo nginx -v
 ```
 
@@ -28,17 +28,40 @@ sudo nginx -v
 
 <br>
 
+### ※ Nginx 관련 명령어
+
+- Nginx 상태 확인
+
+```bash
+sudo systemctl status nginx
+```
+
+- Nginx 중지
+
+```bash
+sudo systemctl stop nginx
+```
+
+- Nginx 재시작
+  - Nginx와 관련해서 설정을 바꾸고나면 항상 재시작을 해주자. 뭔가 분명히 바꿨는데 재대로 적용이 안 되면 재시작을 하지 않아서 적용이 안 된 경우일 수도 있다.
+
+```bash
+sudo systemctl restart nginx
+```
+
+<br>
+
 ## SSL 설정
 
 ### Let's Encrypt 설치
 
-```
+```bash
 sudo apt-get install letsencrypt
 ```
 
 > Nginx 중지
 
-```
+```bash
 sudo systemctl stop nginx
 ```
 
@@ -48,7 +71,7 @@ sudo systemctl stop nginx
 
 > sudo letsencrypt certonly --standalone -d <도메인>
 
-```
+```bash
 sudo letsencrypt certonly --standalone -d [도메인]
 ```
 
@@ -71,8 +94,14 @@ sudo letsencrypt certonly --standalone -d [도메인]
 ### 커스텀 파일 생성
 
 > /etc/nginx/sites-available로 이동한 후, 적절한 이름의 파일을 생성 (필자는 팀 코드네임인 b108로 생성함)
+>
+> sudo vim b108.conf
 
-#### B108.conf
+```bash
+sudo vim [파일명].conf
+```
+
+#### b108.conf
 
 ```nginx
 server {
@@ -111,10 +140,10 @@ server {
 
 ### 커스텀 파일 적용
 
-> sudo ln -s /etc/nginx/sites-available/[파일명] /etc/nginx/sites-enabled/[파일명]
+> sudo ln -s /etc/nginx/sites-available/[파일명].conf /etc/nginx/sites-enabled/[파일명].conf
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/b108 /etc/nginx/sites-enabled/b108
+sudo ln -s /etc/nginx/sites-available/b108.conf /etc/nginx/sites-enabled/b108.conf
 ```
 
 - ln: link(연결)의 의미
